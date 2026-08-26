@@ -39,17 +39,22 @@ export default grammar({
       "block",
       "expression",
       "literal",
+      "typeName",
       "statement",
+      "functionType",
+      "typePath",
+      "type",
     ]
 
   ],
 
   rules: {
 
-    source_file: $ => $.expression,
+    source_file: $ => repeat($.statement),
     identifier: $ => prec("identifier",identifier),
+    typeName: $ => prec("typeName",token(identifier)),
     expression: $ => prec("expression", choice(
-      // $._literal,
+      $._literal,
       $.block,
       $.identifier,
       $.binaryOp,
@@ -57,7 +62,7 @@ export default grammar({
       $.tenaryOp,
 
     )),
-    statement: $ => choice(
+    statement: $ => prec.left(choice(
       $.ifExpr,
       $.switchStatement,
       $.functionDeclaration,
@@ -65,14 +70,14 @@ export default grammar({
       $.doWhileExpr,
       $.variableDeclaration,
       $.expression,
-    ),
+    )),
     block: $ => prec.left("block",seq(
       '{',
-      repeat(seq($.expression, ";")),
+      field("exprs",repeat(seq($.expression, ";"))),
       '}'
     )),
 
-    ifExpr: $ => seq(
+    ifExpr: $ => prec.left(seq(
       "if",
       $.expression,
       $.expression,
@@ -82,29 +87,31 @@ export default grammar({
           $.expression,
         )
       )
-    ),
+    )),
 
-    whileExpr: $ => seq(
+    whileExpr: $ => prec.left(seq(
       "while",
       $.expression,
       $.expression,
-    ),
+    )),
 
-    doWhileExpr: $ => seq(
+    doWhileExpr: $ => prec.left(seq(
       "do",
       $.expression,
       "while",
       $.expression,
-    ),
+    )),
 
-    functionDeclaration: $ => seq(
+    functionDeclaration: $ => prec.left(seq(
       "function",
+      field("name",optional($.identifier)),
       "(",
+        field("args",optional($._paramList)),
       ")",
-      $.expression
-    ),
+      field("body",$.expression)
+    )),
 
-    variableDeclaration: $ => seq(
+    variableDeclaration: $ => prec.left(seq(
       "var",
       $.identifier,
       optional(
@@ -119,7 +126,8 @@ export default grammar({
           $.expression
         )
       ),
-    ),
+      ";"
+    )),
 
     metadataDefinition: $ => seq(
       "@",
@@ -133,7 +141,7 @@ export default grammar({
     ),
 
 
-    switchStatement: $ => seq(
+    switchStatement: $ => prec.left(seq(
       "switch",
       "(",
       $.expression,
@@ -142,7 +150,7 @@ export default grammar({
       repeat($._switchCase),
       optional($._defaultCase),
       "}"
-    ),
+    )),
 
     _switchCase: $ => seq(
       "case",
@@ -156,12 +164,12 @@ export default grammar({
       $.expression
     ),
 
-    type: $ => choice(
-      $.identifier,
+    type: $ => prec.left("type",choice(
+      // "Thing.Thing.Foo"
       $._typePath,
       // Array<Thing>
       seq(
-        $.type,
+        choice($.typeName, $._typePath),
         token.immediate("<"),
         $._typeList,
         token.immediate(">"),
@@ -169,28 +177,28 @@ export default grammar({
       // Function type
       $._functionType,
       // Anonymous Type
-      $._paramList,
+      $._anonType,
       seq("(", $.type, ")")
-    ),
+    )),
 
 
     _anonType: $ => seq(
       "{", $._paramList, "}"
     ),
 
-    _functionType: $ => choice(
-      seq(
+    _functionType: $ => prec.left("functionType",choice(
+      prec.left(seq(
         $.type,
-        repeat1(seq("->", $.type,))
-      ),
+        prec.left(repeat1(prec.left(seq("->", $.type,))))
+      )),
       seq(
         "(", $._typeList, ")",
         "->", $.type
       )
-    ),
+    )),
 
-    _typePath: $ => seq(
-      $.identifier,
+    _typePath: $ => prec.left("typePath",seq(
+      $.typeName,
       repeat(
         seq(
           token.immediate("."),
@@ -198,7 +206,7 @@ export default grammar({
           token.immediate(identifier),
         )
       )
-    ),
+    )),
 
     // Literal Values
     call: $ => prec("access-call",seq(
@@ -219,10 +227,10 @@ export default grammar({
       $.expression,
       repeat(seq(",", $.expression,))
     ),
-    _typeList: $ => seq(
+    _typeList: $ => prec.left(seq(
       $.type,
       repeat(seq(",", $.type))
-    ),
+    )),
 
     _paramList: $ => seq(
       $.parameter,
@@ -334,8 +342,8 @@ export default grammar({
     nil: $ => prec("primary","null"),
     bool: $ => prec("primary",choice("true", "false")),
     int: $ => prec("primary",(choice($.plain_int, $.int))),
-    float: $ => prec("primary",/[0-9]+([.][0-9]+)([eE][0-9]+)/),
-    plain_int: $ => /[\d]+/,
+    float: $ => prec("primary",/[0-9]+([.][0-9]+)?([eE][0-9]+)?/),
+    plain_int: $ => /[0-9]+/,
     hex_int: $ => /0x[0-9A-Fa-f]+/,
     string: $ => prec("primary",/".*?"|'.*?'/),
   }
