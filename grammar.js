@@ -13,6 +13,7 @@ export default grammar({
   precedences: () => [
     // First we need to handle operators
     [
+      "statement",
       "new",
       "postfix-unary",
       "prefix-unary",
@@ -35,16 +36,18 @@ export default grammar({
       "unary",
       "binary",
       "block",
-      "grouping",
+      // "statement",
       "access-call",
+      "grouping",
       "literal",
       "type_identifier",
       "field_identifier",
-      "statement",
       "functionType",
       "typePath",
       "type",
       "expression",
+      "expressionStatement",
+      "expressionInline",
     ]
   ],
 
@@ -59,44 +62,54 @@ export default grammar({
   ],
   word: $ => $.identifier,
   rules: {
-    source_file: $ => repeat($.statement),
+    source_file: $ => seq(repeat($.statement), optional($.expression)),
     identifier: _ => identifier,
     type_identifier: $ => prec("type_identifier", alias($.identifier, $.type_identifier)),
     field_identifier: $ => prec("field_identifier", alias($.identifier, $.field_identifier)),
-    expression: $ => prec("expression", choice(
+    _expressionInline: $ => prec("expressionInline", choice(
       $._literal,
-      $.block,
       $.identifier,
       $.binaryOp,
       $.unaryOp,
       $.tenaryOp,
-      $.field,
+      $.fieldAccess,
       $.call,
-      $.object
+      $.arrayAccess,
+      $.arrayDeclaration,
+      $.object,
+      $.new,
+      $.return
     )),
-    statement: $ => prec.left(choice(
+
+    _expressionOutline: $ => prec("statement", choice(
+      $.block,
+      $.functionDeclaration
+    )),
+    expression: $ => prec.left("expression", choice($._expressionInline, $._expressionOutline)),
+    expressionStatement: $ => prec.left("statement", choice(seq($._expressionInline, ";"), $._expressionOutline)),
+    statement: $ => prec.left("statement", choice(
       $.ifExpr,
       $.switchStatement,
-      $.functionDeclaration,
       $.whileExpr,
       $.doWhileExpr,
       $.variableDeclaration,
-      $.expression,
+      $.forStatement,
+      $.expressionStatement,
     )),
     block: $ => prec.left("block", seq(
       '{',
-      field("exprs", repeat(seq($.expression, ";"))),
+      field("statement", seq(repeat($.statement), optional($.expression))),
       '}'
     )),
 
     ifExpr: $ => prec.left(seq(
       "if",
       $.expression,
-      $.expression,
+      choice($.expression, $.statement),
       optional(
         seq(
           "else",
-          $.expression,
+          choice($.statement, $.expression),
         )
       )
     )),
@@ -120,6 +133,10 @@ export default grammar({
       "(",
       field("args", optional($._paramList)),
       ")",
+      optional(seq(
+        ":",
+        $.type
+      )),
       field("body", $.expression)
     )),
 
@@ -147,9 +164,31 @@ export default grammar({
       optional(seq(
         "(",
         $._expressionList,
+
         ")"
       )),
       $.expression
+    ),
+
+    forStatement: $ => seq(
+      "for",
+      "(",
+      choice(
+        $.keyValueForIterator,
+        $.valueForIterator
+      ),
+      "in",
+      $.expression,
+      ")",
+    ),
+    keyValueForIterator: $ => seq(
+      field("key", $.identifier),
+      "=>",
+      field("value", $.identifier)
+    ),
+
+    valueForIterator: $ => seq(
+      field("value", $.identifier)
     ),
 
 
@@ -168,12 +207,12 @@ export default grammar({
       "case",
       $._expressionList,
       ":",
-      $.expression
+      repeat($.statement)
     ),
     _defaultCase: $ => seq(
       "default",
       ":",
-      $.expression
+      repeat($.statement)
     ),
 
     type: $ => prec.left("type", choice(
@@ -227,17 +266,33 @@ export default grammar({
       optional($._expressionList),
       ")",
     )),
+    arrayAccess: $ => prec.left("access-call", seq(
+      $.expression,
+      token.immediate("["),
+      optional($.expression),
+      "]",
+    )),
 
-    field: $ => prec.left("access-call", seq(
+    new: $ => prec.left("access-call", seq(
+      "new",
+      $.identifier,
+      token.immediate("("),
+      optional($._expressionList),
+      ")",
+    )),
+
+    fieldAccess: $ => prec.left("access-call", seq(
       field("expr", $.expression),
       token.immediate("."),
-      field("name", token.immediate(identifier))
+      alias(token.immediate(identifier), $.field_identifier)
     )),
 
 
     _expressionList: $ => prec.left(seq(
       $.expression,
-      repeat(seq(",", $.expression,))
+      repeat(seq(",", $.expression)),
+      optional(",")
+      
     )),
     _typeList: $ => prec.left(seq(
       $.type,
@@ -259,6 +314,14 @@ export default grammar({
       "{", $._objectFieldList, "}"
     ),
 
+    arrayDeclaration: $ => seq(
+      "[",
+      optional(
+          $._expressionList,
+        ),
+      "]"
+    ),
+
     objectField: $ => seq(
       $.field_identifier,
       ":",
@@ -271,6 +334,11 @@ export default grammar({
       optional(",")
     ),
 
+    return: $ => prec.left(seq(
+      "return",
+      optional($.expression),
+
+    )),
     binaryOp: $ => prec("binary", choice(
       // Additive
       prec.left("addition-subtraction", seq($.expression, "+", $.expression)),
@@ -354,11 +422,11 @@ export default grammar({
     parent: $ => prec("grouping", seq("(", $.expression, ")")),
     nil: $ => prec("primary", "null"),
     bool: $ => prec("primary", choice("true", "false")),
-    int: $ => prec("primary", (choice($.plain_int, $.int))),
+    int: $ => prec("primary", (choice($.plain_int, $.hex_int))),
     float: $ => prec("primary", /[0-9]+([.][0-9]+)?([eE][0-9]+)?/),
     plain_int: $ => /[0-9]+/,
-    hex_int: $ => /0x[0-9A-Fa-f]+/,
-    string: $ => prec.left("primary", 
+    hex_int: $ => /0[xX][0-9a-fA-F]+/,
+    string: $ => prec.left("primary",
       choice(
         /\"(?<string>(?:(?<escape>\\[a-zA-Z0-9\\\"])|[^\"\\\n])*)\"/,
         /\'(?<string>(?:(?<escape>\\[a-zA-Z0-9\\\'])|[^\'\\\n])*)\'/,
