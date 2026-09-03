@@ -5,18 +5,6 @@
  */
 // import dsl from 'tree-sitter-cli/dsl'
 
-
-function opRule(precFn, precName, leftExpr, op, rightExpr) {
-  var sequence = [];
-  if (leftExpr != null && rightExpr != null) {
-    sequence = [field("left", leftExpr), field("op", op), field("right", rightExpr)];
-  } else if (rightExpr != null) {
-    sequence = [field("op", op), field("expr", rightExpr)];
-  } else if (leftExpr != null) {
-    sequence = [field("expr", leftExpr), field("op", op)];
-  }
-  return precFn(precName, seq(...sequence));
-}
 var identifier = /[a-zA-Z_][a-zA-Z0-9_]*/;
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
@@ -60,8 +48,7 @@ export default grammar({
       "expression",
       "expressionStatement",
       "expressionInline",
-      "expressionList",
-    ],
+    ]
   ],
 
   extras: ($) => [
@@ -75,7 +62,7 @@ export default grammar({
   ],
   word: $ => $.identifier,
   rules: {
-    source_file: $ => seq(repeat($.statement), optional($.expression)),
+    source_file: $ => repeat($.statement),
     identifier: _ => identifier,
     type_identifier: $ => prec("type_identifier", alias($.identifier, $.type_identifier)),
     field_identifier: $ => prec("field_identifier", alias($.identifier, $.field_identifier)),
@@ -85,7 +72,7 @@ export default grammar({
       $.binaryOp,
       $.unaryOp,
       $.tenaryOp,
-      $.fieldAccess,
+      $.field,
       $.call,
       $.arrayAccess,
       $.arrayDeclaration,
@@ -177,7 +164,6 @@ export default grammar({
       optional(seq(
         "(",
         $._expressionList,
-
         ")"
       )),
       $.expression
@@ -211,18 +197,18 @@ export default grammar({
       $.expression,
       ")",
       "{",
-      repeat($.switchCase),
-      optional($.defaultCase),
+      repeat($._switchCase),
+      optional($._defaultCase),
       "}"
     )),
 
-    switchCase: $ => seq(
+    _switchCase: $ => seq(
       "case",
       $._expressionList,
       ":",
       repeat($.statement)
     ),
-    defaultCase: $ => seq(
+    _defaultCase: $ => seq(
       "default",
       ":",
       repeat($.statement)
@@ -230,27 +216,27 @@ export default grammar({
 
     type: $ => prec.left("type", choice(
       // "Thing.Thing.Foo"
-      $.typePath,
+      $._typePath,
       // Array<Thing>
       seq(
-        choice($.type_identifier, $.typePath),
+        choice($.type_identifier, $._typePath),
         token.immediate("<"),
-        field("typeParameters",$._typeList),
+        $._typeList,
         token.immediate(">"),
       ),
       // Function type
-      $.functionType,
+      $._functionType,
       // Anonymous Type
-      $.anonType,
+      $._anonType,
       seq("(", $.type, ")")
     )),
 
 
-    anonType: $ => seq(
+    _anonType: $ => seq(
       "{", $._paramList, "}"
     ),
 
-    functionType: $ => prec.left("functionType", choice(
+    _functionType: $ => prec.left("functionType", choice(
       prec.left(seq(
         $.type,
         prec.left(repeat1(prec.left(seq("->", $.type,))))
@@ -261,13 +247,13 @@ export default grammar({
       )
     )),
 
-    typePath: $ => prec.left("typePath", seq(
+    _typePath: $ => prec.left("typePath", seq(
       $.type_identifier,
       repeat(
         seq(
           token.immediate("."),
           // $.identifier
-          alias(token.immediate(identifier),$.type_identifier),
+          token.immediate(identifier),
         )
       )
     )),
@@ -276,37 +262,34 @@ export default grammar({
     call: $ => prec.left("access-call", seq(
       $.expression,
       token.immediate("("),
-      field("args",optional($._expressionList)),
+      optional($._expressionList),
       ")",
     )),
-    
     arrayAccess: $ => prec.left("access-call", seq(
-      field("expr",$.expression),
+      $.expression,
       token.immediate("["),
-      field("key",$.expression),
+      optional($.expression),
       "]",
     )),
 
     new: $ => prec.left("access-call", seq(
       "new",
-      field("name",$.identifier),
+      $.identifier,
       token.immediate("("),
       optional($._expressionList),
       ")",
     )),
 
-    fieldAccess: $ => prec.left("access-call", seq(
+    field: $ => prec.left("access-call", seq(
       field("expr", $.expression),
       token.immediate("."),
-      field("fieldName",alias(token.immediate(identifier), $.field_identifier))
+      field("name", token.immediate("foo"))
     )),
 
 
-    _expressionList: $ => prec.right("expressionList",seq(
+    _expressionList: $ => prec.left(seq(
       $.expression,
-      (repeat(prec.right(seq(",", $.expression)))),
-      optional(",")
-
+      repeat(seq(",", $.expression,))
     )),
     _typeList: $ => prec.left(seq(
       $.type,
@@ -319,8 +302,8 @@ export default grammar({
     ),
 
     parameter: $ => seq(
-      field("name", $.identifier),
-      field("type", optional(seq(":", $.type)))
+      $.identifier,
+      optional(seq(":", $.type))
     ),
 
 
@@ -329,17 +312,13 @@ export default grammar({
     ),
 
     arrayDeclaration: $ => seq(
-      "[",
-      optional(
-        $._expressionList,
-      ),
-      "]"
+      "[", optional(seq($._expressionList, optional(","))),"]"
     ),
 
     objectField: $ => seq(
-      field("name", $.field_identifier),
+      $.field_identifier,
       ":",
-      field("value", $.expression)
+      $.expression
     ),
 
     _objectFieldList: $ => seq(
@@ -350,73 +329,76 @@ export default grammar({
 
     return: $ => prec.left(seq(
       "return",
-      field("value", optional($.expression)),
+      optional($.expression),
 
     )),
-    _assignable: $ => choice($.identifier, $.arrayAccess, $.fieldAccess),
     binaryOp: $ => prec("binary", choice(
       // Additive
-      opRule(prec.left,"addition-subtraction",$.expression, "+", $.expression ),
-      opRule(prec.left,"addition-subtraction",$.expression, "-", $.expression ),
+      prec.left("addition-subtraction", seq($.expression, "+", $.expression)),
+      prec.left("addition-subtraction", seq($.expression, "-", $.expression)),
 
       // Multiplicative
-      opRule(prec.left,"multiplication-division",$.expression, "*", $.expression ),
-      opRule(prec.left,"multiplication-division",$.expression, "/", $.expression ),
+      prec.left("multiplication-division", seq($.expression, "*", $.expression)),
+      prec.left("multiplication-division", seq($.expression, "/", $.expression)),
 
-      opRule(prec.left,"modulo",$.expression, "%", $.expression ),
+      prec.left("modulo", seq($.expression, "/", $.expression)),
 
       // Bitwise Ops
-      opRule(prec.left,"bitwise-shifts",$.expression, ">>", $.expression ),
-      opRule(prec.left,"bitwise-shifts",$.expression, ">>>", $.expression ),
-      opRule(prec.left,"bitwise-shifts",$.expression, "<<", $.expression ),
+      prec.left("bitwise-shifts", seq($.expression, ">>", $.expression)),
+      prec.left("bitwise-shifts", seq($.expression, ">>>", $.expression)),
+      prec.left("bitwise-shifts", seq($.expression, "<<", $.expression)),
+
+      prec.left("bitwise-operators", seq($.expression, "&", $.expression)),
+      prec.left("bitwise-operators", seq($.expression, "|", $.expression)),
+      prec.left("bitwise-operators", seq($.expression, "^", $.expression)),
 
       // Logical Operators
-      opRule(prec.left,"logical-and",$.expression, "&&", $.expression ),
-      opRule(prec.left,"logical-or",$.expression, "||", $.expression ),
+      prec.left("logical-and", seq($.expression, "&&", $.expression)),
+      prec.left("logical-or", seq($.expression, "||", $.expression)),
 
-      // Comparison
-      opRule(prec.left,"comparison",$.expression, "==", $.expression ),
-      opRule(prec.left,"comparison",$.expression, "!=", $.expression ),
-      opRule(prec.left,"comparison",$.expression, ">=", $.expression ),
-      opRule(prec.left,"comparison",$.expression, "<=", $.expression ),
-      opRule(prec.left,"comparison",$.expression, "<", $.expression ),
-      opRule(prec.left,"comparison",$.expression, ">", $.expression ),
+      // Equality
+      prec.left("comparison", seq($.expression, "==", $.expression)),
+      prec.left("comparison", seq($.expression, "!=", $.expression)),
+      prec.left("comparison", seq($.expression, ">=", $.expression)),
+      prec.left("comparison", seq($.expression, "<=", $.expression)),
+      prec.left("comparison", seq($.expression, "<", $.expression)),
+      prec.left("comparison", seq($.expression, ">", $.expression)),
 
-      // Assignment
-      opRule(prec.right,"compound-assign",$._assignable, "%=", $.expression ),
-      opRule(prec.right,"compound-assign",$._assignable, "*=", $.expression ),
-      opRule(prec.right,"compound-assign",$._assignable, "/=", $.expression ),
-      opRule(prec.right,"compound-assign",$._assignable, "+=", $.expression ),
-      opRule(prec.right,"compound-assign",$._assignable, "-=", $.expression ),
-      opRule(prec.right,"compound-assign",$._assignable, "<<=", $.expression ),
-      opRule(prec.right,"compound-assign",$._assignable, ">>=", $.expression ),
-      opRule(prec.right,"compound-assign",$._assignable, ">>>=", $.expression ),
-      opRule(prec.right,"compound-assign",$._assignable, "&=", $.expression ),
-      opRule(prec.right,"compound-assign",$._assignable, "|=", $.expression ),
-      opRule(prec.right,"compound-assign",$._assignable, "^=", $.expression ),
-      opRule(prec.right,"compound-assign",$._assignable, "=", $.expression ),
+      // Compound Assignment
+      prec.right("compound-assign", seq($.expression, "%=", $.expression)),
+      prec.right("compound-assign", seq($.expression, "*=", $.expression)),
+      prec.right("compound-assign", seq($.expression, "/=", $.expression)),
+      prec.right("compound-assign", seq($.expression, "+=", $.expression)),
+      prec.right("compound-assign", seq($.expression, "-=", $.expression)),
+      prec.right("compound-assign", seq($.expression, "<<=", $.expression)),
+      prec.right("compound-assign", seq($.expression, ">>=", $.expression)),
+      prec.right("compound-assign", seq($.expression, ">>>=", $.expression)),
+      prec.right("compound-assign", seq($.expression, "&=", $.expression)),
+      prec.right("compound-assign", seq($.expression, "|=", $.expression)),
+      prec.right("compound-assign", seq($.expression, "^=", $.expression)),
+      prec.right("compound-assign", seq($.expression, "=", $.expression)),
 
-      opRule(prec.left,"interval",$.expression, "...", $.expression ),
-      opRule(prec.right,"arrow",$.expression, "=>", $.expression ),
+      prec.left("interval", seq($.expression, "...", $.expression)),
+      prec.right("arrow", seq($.expression, "=>", $.expression)),
 
     )),
 
     unaryOp: $ => prec("unary", choice(
-      opRule(prec.right,"postfix-unary",$.expression, "++", null),
-      opRule(prec.right,"postfix-unary",$.expression, "--", null),
-      opRule(prec.right,"prefix-unary",null, "++", $.expression ),
-      opRule(prec.right,"prefix-unary",null, "--", $.expression ),
-      opRule(prec.right,"prefix-unary",null, "-", $.expression ),
-      opRule(prec.right,"prefix-unary",null, "!", $.expression ),
-      opRule(prec.right,"prefix-unary",null, "~", $.expression ),
+      prec.right("postfix-unary", seq($.expression, "++")),
+      prec.right("postfix-unary", seq($.expression, "--")),
+      prec.right("prefix-unary", seq("++", $.expression)),
+      prec.right("prefix-unary", seq("--", $.expression)),
+      prec.right("prefix-unary", seq("-", $.expression)),
+      prec.right("prefix-unary", seq("!", $.expression)),
+      prec.right("prefix-unary", seq("~", $.expression)),
     )),
 
     tenaryOp: $ => prec.right("tenary", seq(
-      field("cond",$.expression),
+      $.expression,
       "?",
-      field("trueExpr",$.expression),
+      $.expression,
       ":",
-      field("falseExpr",$.expression),
+      $.expression,
 
     )),
 
@@ -433,15 +415,10 @@ export default grammar({
     parent: $ => prec("grouping", seq("(", $.expression, ")")),
     nil: $ => prec("primary", "null"),
     bool: $ => prec("primary", choice("true", "false")),
-    int: $ => prec("primary", (choice($._plain_int, $._hex_int))),
+    int: $ => prec("primary", (choice($.plain_int, $.hex_int))),
     float: $ => prec("primary", /[0-9]+([.][0-9]+)?([eE][0-9]+)?/),
-    float: $ => prec("primary", choice(
-      /[0-9]+[.][0-9]+[eE][+-]?[0-9]+/,
-      /[0-9]+[.][0-9]+/,
-      /[0-9]+[eE][+-]?[0-9]+/,
-    )),
-    _plain_int: $ => /[0-9]+/,
-    _hex_int: $ => /0[xX][0-9a-fA-F]+/,
+    plain_int: $ => /[0-9]+/,
+    hex_int: $ => /0[xX][0-9a-fA-F]+/,
     string: $ => prec.left("primary",
       choice(
         /\"(?<string>(?:(?<escape>\\[a-zA-Z0-9\\\"])|[^\"\\\n])*)\"/,
