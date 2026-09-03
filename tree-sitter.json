@@ -30,12 +30,12 @@
     }
   },
   "bindings": {
-    "c": false,
+    "c": true,
     "go": false,
     "java": false,
     "node": true,
-    "python": false,
-    "rust": false,
+    "python": true,
+    "rust": true,
     "swift": false,
     "zig": false
   }
