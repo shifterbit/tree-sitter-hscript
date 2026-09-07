@@ -73,6 +73,7 @@ export default grammar({
     $.statement,
     $._literal
   ],
+
   word: $ => $.identifier,
   rules: {
     source_file: $ => seq(repeat($.statement), optional($.expression)),
@@ -155,7 +156,7 @@ export default grammar({
 
     variableDeclaration: $ => prec.left(seq(
       "var",
-      $.identifier,
+      field("name",$.identifier),
       optional(
         seq(
           ":",
