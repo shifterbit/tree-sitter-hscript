@@ -85,11 +85,11 @@
           },
           {
             "type": "SYMBOL",
-            "name": "fieldAccess"
+            "name": "field_access"
           },
           {
             "type": "SYMBOL",
-            "name": "call"
+            "name": "call_expression"
           },
           {
             "type": "SYMBOL",
@@ -126,7 +126,7 @@
           },
           {
             "type": "SYMBOL",
-            "name": "functionDeclaration"
+            "name": "function_declaration"
           }
         ]
       }
@@ -207,6 +207,14 @@
           {
             "type": "SYMBOL",
             "name": "expressionStatement"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "break"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "continue"
           }
         ]
       }
@@ -362,7 +370,7 @@
         ]
       }
     },
-    "functionDeclaration": {
+    "function_declaration": {
       "type": "PREC_LEFT",
       "value": 0,
       "content": {
@@ -455,8 +463,12 @@
             "value": "var"
           },
           {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "FIELD",
+            "name": "name",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            }
           },
           {
             "type": "CHOICE",
@@ -751,26 +763,8 @@
                 ]
               },
               {
-                "type": "IMMEDIATE_TOKEN",
-                "content": {
-                  "type": "STRING",
-                  "value": "<"
-                }
-              },
-              {
-                "type": "FIELD",
-                "name": "typeParameters",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "_typeList"
-                }
-              },
-              {
-                "type": "IMMEDIATE_TOKEN",
-                "content": {
-                  "type": "STRING",
-                  "value": ">"
-                }
+                "type": "SYMBOL",
+                "name": "type_params"
               }
             ]
           },
@@ -801,6 +795,33 @@
           }
         ]
       }
+    },
+    "type_params": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "<"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "typeParameters",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_typeList"
+          }
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": ">"
+          }
+        }
+      ]
     },
     "anonType": {
       "type": "SEQ",
@@ -930,15 +951,19 @@
         ]
       }
     },
-    "call": {
+    "call_expression": {
       "type": "PREC_LEFT",
       "value": "access-call",
       "content": {
         "type": "SEQ",
         "members": [
           {
-            "type": "SYMBOL",
-            "name": "expression"
+            "type": "FIELD",
+            "name": "expr",
+            "content": {
+              "type": "SYMBOL",
+              "name": "expression"
+            }
           },
           {
             "type": "IMMEDIATE_TOKEN",
@@ -1050,7 +1075,7 @@
         ]
       }
     },
-    "fieldAccess": {
+    "field_access": {
       "type": "PREC_LEFT",
       "value": "access-call",
       "content": {
@@ -1073,7 +1098,7 @@
           },
           {
             "type": "FIELD",
-            "name": "fieldName",
+            "name": "name",
             "content": {
               "type": "ALIAS",
               "content": {
@@ -1360,6 +1385,14 @@
         ]
       }
     },
+    "break": {
+      "type": "STRING",
+      "value": "break"
+    },
+    "continue": {
+      "type": "STRING",
+      "value": "continue"
+    },
     "_assignable": {
       "type": "CHOICE",
       "members": [
@@ -1373,7 +1406,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "fieldAccess"
+          "name": "field_access"
         }
       ]
     },
@@ -1634,6 +1667,72 @@
                   "content": {
                     "type": "STRING",
                     "value": "<<"
+                  }
+                },
+                {
+                  "type": "FIELD",
+                  "name": "right",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "expression"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "type": "PREC_LEFT",
+            "value": "bitwise-shifts",
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "left",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "expression"
+                  }
+                },
+                {
+                  "type": "FIELD",
+                  "name": "op",
+                  "content": {
+                    "type": "STRING",
+                    "value": "&"
+                  }
+                },
+                {
+                  "type": "FIELD",
+                  "name": "right",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "expression"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "type": "PREC_LEFT",
+            "value": "bitwise-shifts",
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "left",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "expression"
+                  }
+                },
+                {
+                  "type": "FIELD",
+                  "name": "op",
+                  "content": {
+                    "type": "STRING",
+                    "value": "|"
                   }
                 },
                 {

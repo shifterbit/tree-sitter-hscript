@@ -86,8 +86,8 @@ export default grammar({
       $.binaryOp,
       $.unaryOp,
       $.tenaryOp,
-      $.fieldAccess,
-      $.call,
+      $.field_access,
+      $.call_expression,
       $.arrayAccess,
       $.arrayDeclaration,
       $.object,
@@ -97,7 +97,7 @@ export default grammar({
 
     _expressionOutline: $ => prec("statement", choice(
       $.block,
-      $.functionDeclaration
+      $.function_declaration
     )),
     expression: $ => prec.left("expression", choice($._expressionInline, $._expressionOutline)),
     expressionStatement: $ => prec.left("statement", choice(seq($._expressionInline, ";"), $._expressionOutline)),
@@ -109,6 +109,8 @@ export default grammar({
       $.variableDeclaration,
       $.forStatement,
       $.expressionStatement,
+      $.break,
+      $.continue
     )),
     block: $ => prec.left("block", seq(
       '{',
@@ -141,7 +143,7 @@ export default grammar({
       $.expression,
     )),
 
-    functionDeclaration: $ => prec.left(seq(
+    function_declaration: $ => prec.left(seq(
       "function",
       field("name", optional($.identifier)),
       "(",
@@ -156,7 +158,7 @@ export default grammar({
 
     variableDeclaration: $ => prec.left(seq(
       "var",
-      field("name",$.identifier),
+      field("name", $.identifier),
       optional(
         seq(
           ":",
@@ -235,9 +237,7 @@ export default grammar({
       // Array<Thing>
       seq(
         choice($.type_identifier, $.typePath),
-        token.immediate("<"),
-        field("typeParameters",$._typeList),
-        token.immediate(">"),
+        $.type_params
       ),
       // Function type
       $.functionType,
@@ -245,6 +245,12 @@ export default grammar({
       $.anonType,
       seq("(", $.type, ")")
     )),
+
+    type_params: $ => seq(
+      token.immediate("<"),
+      field("typeParameters", $._typeList),
+      token.immediate(">"),
+    ),
 
 
     anonType: $ => seq(
@@ -268,42 +274,42 @@ export default grammar({
         seq(
           token.immediate("."),
           // $.identifier
-          alias(token.immediate(identifier),$.type_identifier),
+          alias(token.immediate(identifier), $.type_identifier),
         )
       )
     )),
 
     // Literal Values
-    call: $ => prec.left("access-call", seq(
-      $.expression,
+    call_expression: $ => prec.left("access-call", seq(
+      field("expr",$.expression),
       token.immediate("("),
-      field("args",optional($._expressionList)),
+      field("args", optional($._expressionList)),
       ")",
     )),
-    
+
     arrayAccess: $ => prec.left("access-call", seq(
-      field("expr",$.expression),
+      field("expr", $.expression),
       token.immediate("["),
-      field("key",$.expression),
+      field("key", $.expression),
       "]",
     )),
 
     new: $ => prec.left("access-call", seq(
       "new",
-      field("name",$.identifier),
+      field("name", $.identifier),
       token.immediate("("),
       optional($._expressionList),
       ")",
     )),
 
-    fieldAccess: $ => prec.left("access-call", seq(
+    field_access: $ => prec.left("access-call", seq(
       field("expr", $.expression),
       token.immediate("."),
-      field("fieldName",alias(token.immediate(identifier), $.field_identifier))
+      field("name", alias(token.immediate(identifier), $.field_identifier))
     )),
 
 
-    _expressionList: $ => prec.right("expressionList",seq(
+    _expressionList: $ => prec.right("expressionList", seq(
       $.expression,
       (repeat(prec.right(seq(",", $.expression)))),
       optional(",")
@@ -354,70 +360,76 @@ export default grammar({
       field("value", optional($.expression)),
 
     )),
-    _assignable: $ => choice($.identifier, $.arrayAccess, $.fieldAccess),
+
+    break: $ => "break",
+    continue: $ => "continue",
+
+    _assignable: $ => choice($.identifier, $.arrayAccess, $.field_access),
     binaryOp: $ => prec("binary", choice(
       // Additive
-      opRule(prec.left,"addition-subtraction",$.expression, "+", $.expression ),
-      opRule(prec.left,"addition-subtraction",$.expression, "-", $.expression ),
+      opRule(prec.left, "addition-subtraction", $.expression, "+", $.expression),
+      opRule(prec.left, "addition-subtraction", $.expression, "-", $.expression),
 
       // Multiplicative
-      opRule(prec.left,"multiplication-division",$.expression, "*", $.expression ),
-      opRule(prec.left,"multiplication-division",$.expression, "/", $.expression ),
+      opRule(prec.left, "multiplication-division", $.expression, "*", $.expression),
+      opRule(prec.left, "multiplication-division", $.expression, "/", $.expression),
 
-      opRule(prec.left,"modulo",$.expression, "%", $.expression ),
+      opRule(prec.left, "modulo", $.expression, "%", $.expression),
 
       // Bitwise Ops
-      opRule(prec.left,"bitwise-shifts",$.expression, ">>", $.expression ),
-      opRule(prec.left,"bitwise-shifts",$.expression, ">>>", $.expression ),
-      opRule(prec.left,"bitwise-shifts",$.expression, "<<", $.expression ),
+      opRule(prec.left, "bitwise-shifts", $.expression, ">>", $.expression),
+      opRule(prec.left, "bitwise-shifts", $.expression, ">>>", $.expression),
+      opRule(prec.left, "bitwise-shifts", $.expression, "<<", $.expression),
+      opRule(prec.left, "bitwise-shifts", $.expression, "&", $.expression),
+      opRule(prec.left, "bitwise-shifts", $.expression, "|", $.expression),
 
       // Logical Operators
-      opRule(prec.left,"logical-and",$.expression, "&&", $.expression ),
-      opRule(prec.left,"logical-or",$.expression, "||", $.expression ),
+      opRule(prec.left, "logical-and", $.expression, "&&", $.expression),
+      opRule(prec.left, "logical-or", $.expression, "||", $.expression),
 
       // Comparison
-      opRule(prec.left,"comparison",$.expression, "==", $.expression ),
-      opRule(prec.left,"comparison",$.expression, "!=", $.expression ),
-      opRule(prec.left,"comparison",$.expression, ">=", $.expression ),
-      opRule(prec.left,"comparison",$.expression, "<=", $.expression ),
-      opRule(prec.left,"comparison",$.expression, "<", $.expression ),
-      opRule(prec.left,"comparison",$.expression, ">", $.expression ),
+      opRule(prec.left, "comparison", $.expression, "==", $.expression),
+      opRule(prec.left, "comparison", $.expression, "!=", $.expression),
+      opRule(prec.left, "comparison", $.expression, ">=", $.expression),
+      opRule(prec.left, "comparison", $.expression, "<=", $.expression),
+      opRule(prec.left, "comparison", $.expression, "<", $.expression),
+      opRule(prec.left, "comparison", $.expression, ">", $.expression),
 
       // Assignment
-      opRule(prec.right,"compound-assign",$._assignable, "%=", $.expression ),
-      opRule(prec.right,"compound-assign",$._assignable, "*=", $.expression ),
-      opRule(prec.right,"compound-assign",$._assignable, "/=", $.expression ),
-      opRule(prec.right,"compound-assign",$._assignable, "+=", $.expression ),
-      opRule(prec.right,"compound-assign",$._assignable, "-=", $.expression ),
-      opRule(prec.right,"compound-assign",$._assignable, "<<=", $.expression ),
-      opRule(prec.right,"compound-assign",$._assignable, ">>=", $.expression ),
-      opRule(prec.right,"compound-assign",$._assignable, ">>>=", $.expression ),
-      opRule(prec.right,"compound-assign",$._assignable, "&=", $.expression ),
-      opRule(prec.right,"compound-assign",$._assignable, "|=", $.expression ),
-      opRule(prec.right,"compound-assign",$._assignable, "^=", $.expression ),
-      opRule(prec.right,"compound-assign",$._assignable, "=", $.expression ),
+      opRule(prec.right, "compound-assign", $._assignable, "%=", $.expression),
+      opRule(prec.right, "compound-assign", $._assignable, "*=", $.expression),
+      opRule(prec.right, "compound-assign", $._assignable, "/=", $.expression),
+      opRule(prec.right, "compound-assign", $._assignable, "+=", $.expression),
+      opRule(prec.right, "compound-assign", $._assignable, "-=", $.expression),
+      opRule(prec.right, "compound-assign", $._assignable, "<<=", $.expression),
+      opRule(prec.right, "compound-assign", $._assignable, ">>=", $.expression),
+      opRule(prec.right, "compound-assign", $._assignable, ">>>=", $.expression),
+      opRule(prec.right, "compound-assign", $._assignable, "&=", $.expression),
+      opRule(prec.right, "compound-assign", $._assignable, "|=", $.expression),
+      opRule(prec.right, "compound-assign", $._assignable, "^=", $.expression),
+      opRule(prec.right, "compound-assign", $._assignable, "=", $.expression),
 
-      opRule(prec.left,"interval",$.expression, "...", $.expression ),
-      opRule(prec.right,"arrow",$.expression, "=>", $.expression ),
+      opRule(prec.left, "interval", $.expression, "...", $.expression),
+      opRule(prec.right, "arrow", $.expression, "=>", $.expression),
 
     )),
 
     unaryOp: $ => prec("unary", choice(
-      opRule(prec.right,"postfix-unary",$.expression, "++", null),
-      opRule(prec.right,"postfix-unary",$.expression, "--", null),
-      opRule(prec.right,"prefix-unary",null, "++", $.expression ),
-      opRule(prec.right,"prefix-unary",null, "--", $.expression ),
-      opRule(prec.right,"prefix-unary",null, "-", $.expression ),
-      opRule(prec.right,"prefix-unary",null, "!", $.expression ),
-      opRule(prec.right,"prefix-unary",null, "~", $.expression ),
+      opRule(prec.right, "postfix-unary", $.expression, "++", null),
+      opRule(prec.right, "postfix-unary", $.expression, "--", null),
+      opRule(prec.right, "prefix-unary", null, "++", $.expression),
+      opRule(prec.right, "prefix-unary", null, "--", $.expression),
+      opRule(prec.right, "prefix-unary", null, "-", $.expression),
+      opRule(prec.right, "prefix-unary", null, "!", $.expression),
+      opRule(prec.right, "prefix-unary", null, "~", $.expression),
     )),
 
     tenaryOp: $ => prec.right("tenary", seq(
-      field("cond",$.expression),
+      field("cond", $.expression),
       "?",
-      field("trueExpr",$.expression),
+      field("trueExpr", $.expression),
       ":",
-      field("falseExpr",$.expression),
+      field("falseExpr", $.expression),
 
     )),
 

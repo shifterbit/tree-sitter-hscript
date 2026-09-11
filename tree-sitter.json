@@ -8,6 +8,7 @@
       "scope": "source.hscript",
       "file-types": [
         "hx",
+        "hxs",
         "hscript"
       ],
       "injection-regex": "^hscript$",
@@ -38,5 +39,11 @@
     "rust": true,
     "swift": false,
     "zig": false
+  },
+  "theme": {
+    "keyword": "purple",
+    "function": "blue",
+    "type": "green",
+    "number": "brown"
   }
 }
