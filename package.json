@@ -1,17 +1,17 @@
 {
   "name": "tree-sitter-hscript",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Treesitter parser for hscript",
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tree-sitter/tree-sitter-hscript.git"
+    "url": "git+https://github.com/shifterbit/tree-sitter-hscript.git"
   },
   "funding": "",
   "license": "MIT",
   "author": {
     "name": "shifterbit",
-    "url": ""
+    "url": "https://github.com/shifterbit"
   },
   "main": "bindings/node",
   "types": "bindings/node",
