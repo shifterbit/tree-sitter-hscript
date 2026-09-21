@@ -14,6 +14,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  - name: Setup Node.js
+    uses: actions/setup-node@v3
+    with:
+      registry-url: 'https://registry.npmjs.org/'
+      node-version: '18'
   npm:
     uses: tree-sitter/workflows/.github/workflows/package-npm.yml@main
     secrets:
