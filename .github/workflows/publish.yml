@@ -13,8 +13,9 @@ jobs:
     uses: tree-sitter/workflows/.github/workflows/package-npm.yml@main
     secrets:
       NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-    package-name: tree-sitter-hscript
-    generate: true
+    with:
+      package-name: tree-sitter-hscript
+      generate: true
     
   # crates:
   #   uses: tree-sitter/workflows/.github/workflows/package-crates.yml@main
