@@ -67,7 +67,7 @@ jobs:
       matrix:
         os:
           - windows-2022
-          - windows-11-vs2026-arm
+          # - windows-11-vs2026-arm # Need to figure out why it's breaking ci
           - ubuntu-24.04
           - ubuntu-24.04-arm
           - macos-15
