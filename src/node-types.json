@@ -1,139 +1,5 @@
 [
   {
-    "type": "_literal",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "bool",
-        "named": true
-      },
-      {
-        "type": "float",
-        "named": true
-      },
-      {
-        "type": "int",
-        "named": true
-      },
-      {
-        "type": "nil",
-        "named": true
-      },
-      {
-        "type": "parent",
-        "named": true
-      },
-      {
-        "type": "string",
-        "named": true
-      }
-    ]
-  },
-  {
-    "type": "expression",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "_literal",
-        "named": true
-      },
-      {
-        "type": "arrayAccess",
-        "named": true
-      },
-      {
-        "type": "arrayDeclaration",
-        "named": true
-      },
-      {
-        "type": "binaryOp",
-        "named": true
-      },
-      {
-        "type": "block",
-        "named": true
-      },
-      {
-        "type": "call_expression",
-        "named": true
-      },
-      {
-        "type": "field_access",
-        "named": true
-      },
-      {
-        "type": "function_declaration",
-        "named": true
-      },
-      {
-        "type": "identifier",
-        "named": true
-      },
-      {
-        "type": "new",
-        "named": true
-      },
-      {
-        "type": "object",
-        "named": true
-      },
-      {
-        "type": "return",
-        "named": true
-      },
-      {
-        "type": "tenaryOp",
-        "named": true
-      },
-      {
-        "type": "unaryOp",
-        "named": true
-      }
-    ]
-  },
-  {
-    "type": "statement",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "break",
-        "named": true
-      },
-      {
-        "type": "continue",
-        "named": true
-      },
-      {
-        "type": "doWhileExpr",
-        "named": true
-      },
-      {
-        "type": "expressionStatement",
-        "named": true
-      },
-      {
-        "type": "forStatement",
-        "named": true
-      },
-      {
-        "type": "ifExpr",
-        "named": true
-      },
-      {
-        "type": "switchStatement",
-        "named": true
-      },
-      {
-        "type": "variableDeclaration",
-        "named": true
-      },
-      {
-        "type": "whileExpr",
-        "named": true
-      }
-    ]
-  },
-  {
     "type": "anonType",
     "named": true,
     "fields": {},
@@ -157,7 +23,87 @@
         "required": true,
         "types": [
           {
-            "type": "expression",
+            "type": "arrayAccess",
+            "named": true
+          },
+          {
+            "type": "arrayDeclaration",
+            "named": true
+          },
+          {
+            "type": "binaryOp",
+            "named": true
+          },
+          {
+            "type": "block",
+            "named": true
+          },
+          {
+            "type": "bool",
+            "named": true
+          },
+          {
+            "type": "break",
+            "named": true
+          },
+          {
+            "type": "call_expression",
+            "named": true
+          },
+          {
+            "type": "continue",
+            "named": true
+          },
+          {
+            "type": "field_access",
+            "named": true
+          },
+          {
+            "type": "float",
+            "named": true
+          },
+          {
+            "type": "function_declaration",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "int",
+            "named": true
+          },
+          {
+            "type": "new",
+            "named": true
+          },
+          {
+            "type": "nil",
+            "named": true
+          },
+          {
+            "type": "object",
+            "named": true
+          },
+          {
+            "type": "parent",
+            "named": true
+          },
+          {
+            "type": "return",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "tenaryOp",
+            "named": true
+          },
+          {
+            "type": "unaryOp",
             "named": true
           }
         ]
@@ -167,7 +113,87 @@
         "required": true,
         "types": [
           {
-            "type": "expression",
+            "type": "arrayAccess",
+            "named": true
+          },
+          {
+            "type": "arrayDeclaration",
+            "named": true
+          },
+          {
+            "type": "binaryOp",
+            "named": true
+          },
+          {
+            "type": "block",
+            "named": true
+          },
+          {
+            "type": "bool",
+            "named": true
+          },
+          {
+            "type": "break",
+            "named": true
+          },
+          {
+            "type": "call_expression",
+            "named": true
+          },
+          {
+            "type": "continue",
+            "named": true
+          },
+          {
+            "type": "field_access",
+            "named": true
+          },
+          {
+            "type": "float",
+            "named": true
+          },
+          {
+            "type": "function_declaration",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "int",
+            "named": true
+          },
+          {
+            "type": "new",
+            "named": true
+          },
+          {
+            "type": "nil",
+            "named": true
+          },
+          {
+            "type": "object",
+            "named": true
+          },
+          {
+            "type": "parent",
+            "named": true
+          },
+          {
+            "type": "return",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "tenaryOp",
+            "named": true
+          },
+          {
+            "type": "unaryOp",
             "named": true
           }
         ]
@@ -183,7 +209,87 @@
       "required": false,
       "types": [
         {
-          "type": "expression",
+          "type": "arrayAccess",
+          "named": true
+        },
+        {
+          "type": "arrayDeclaration",
+          "named": true
+        },
+        {
+          "type": "binaryOp",
+          "named": true
+        },
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "bool",
+          "named": true
+        },
+        {
+          "type": "break",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "continue",
+          "named": true
+        },
+        {
+          "type": "field_access",
+          "named": true
+        },
+        {
+          "type": "float",
+          "named": true
+        },
+        {
+          "type": "function_declaration",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "int",
+          "named": true
+        },
+        {
+          "type": "new",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "object",
+          "named": true
+        },
+        {
+          "type": "parent",
+          "named": true
+        },
+        {
+          "type": "return",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "tenaryOp",
+          "named": true
+        },
+        {
+          "type": "unaryOp",
           "named": true
         }
       ]
@@ -198,7 +304,87 @@
         "required": true,
         "types": [
           {
-            "type": "expression",
+            "type": "arrayAccess",
+            "named": true
+          },
+          {
+            "type": "arrayDeclaration",
+            "named": true
+          },
+          {
+            "type": "binaryOp",
+            "named": true
+          },
+          {
+            "type": "block",
+            "named": true
+          },
+          {
+            "type": "bool",
+            "named": true
+          },
+          {
+            "type": "break",
+            "named": true
+          },
+          {
+            "type": "call_expression",
+            "named": true
+          },
+          {
+            "type": "continue",
+            "named": true
+          },
+          {
+            "type": "field_access",
+            "named": true
+          },
+          {
+            "type": "float",
+            "named": true
+          },
+          {
+            "type": "function_declaration",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "int",
+            "named": true
+          },
+          {
+            "type": "new",
+            "named": true
+          },
+          {
+            "type": "nil",
+            "named": true
+          },
+          {
+            "type": "object",
+            "named": true
+          },
+          {
+            "type": "parent",
+            "named": true
+          },
+          {
+            "type": "return",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "tenaryOp",
+            "named": true
+          },
+          {
+            "type": "unaryOp",
             "named": true
           }
         ]
@@ -342,7 +528,87 @@
         "required": true,
         "types": [
           {
-            "type": "expression",
+            "type": "arrayAccess",
+            "named": true
+          },
+          {
+            "type": "arrayDeclaration",
+            "named": true
+          },
+          {
+            "type": "binaryOp",
+            "named": true
+          },
+          {
+            "type": "block",
+            "named": true
+          },
+          {
+            "type": "bool",
+            "named": true
+          },
+          {
+            "type": "break",
+            "named": true
+          },
+          {
+            "type": "call_expression",
+            "named": true
+          },
+          {
+            "type": "continue",
+            "named": true
+          },
+          {
+            "type": "field_access",
+            "named": true
+          },
+          {
+            "type": "float",
+            "named": true
+          },
+          {
+            "type": "function_declaration",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "int",
+            "named": true
+          },
+          {
+            "type": "new",
+            "named": true
+          },
+          {
+            "type": "nil",
+            "named": true
+          },
+          {
+            "type": "object",
+            "named": true
+          },
+          {
+            "type": "parent",
+            "named": true
+          },
+          {
+            "type": "return",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "tenaryOp",
+            "named": true
+          },
+          {
+            "type": "unaryOp",
             "named": true
           }
         ]
@@ -358,11 +624,115 @@
         "required": false,
         "types": [
           {
-            "type": "expression",
+            "type": ";",
+            "named": false
+          },
+          {
+            "type": "arrayAccess",
             "named": true
           },
           {
-            "type": "statement",
+            "type": "arrayDeclaration",
+            "named": true
+          },
+          {
+            "type": "binaryOp",
+            "named": true
+          },
+          {
+            "type": "block",
+            "named": true
+          },
+          {
+            "type": "bool",
+            "named": true
+          },
+          {
+            "type": "break",
+            "named": true
+          },
+          {
+            "type": "call_expression",
+            "named": true
+          },
+          {
+            "type": "continue",
+            "named": true
+          },
+          {
+            "type": "doWhileExpr",
+            "named": true
+          },
+          {
+            "type": "field_access",
+            "named": true
+          },
+          {
+            "type": "float",
+            "named": true
+          },
+          {
+            "type": "forStatement",
+            "named": true
+          },
+          {
+            "type": "function_declaration",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "ifExpr",
+            "named": true
+          },
+          {
+            "type": "int",
+            "named": true
+          },
+          {
+            "type": "new",
+            "named": true
+          },
+          {
+            "type": "nil",
+            "named": true
+          },
+          {
+            "type": "object",
+            "named": true
+          },
+          {
+            "type": "parent",
+            "named": true
+          },
+          {
+            "type": "return",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "switchStatement",
+            "named": true
+          },
+          {
+            "type": "tenaryOp",
+            "named": true
+          },
+          {
+            "type": "unaryOp",
+            "named": true
+          },
+          {
+            "type": "variableDeclaration",
+            "named": true
+          },
+          {
+            "type": "whileExpr",
             "named": true
           }
         ]
@@ -387,7 +757,87 @@
             "named": false
           },
           {
-            "type": "expression",
+            "type": "arrayAccess",
+            "named": true
+          },
+          {
+            "type": "arrayDeclaration",
+            "named": true
+          },
+          {
+            "type": "binaryOp",
+            "named": true
+          },
+          {
+            "type": "block",
+            "named": true
+          },
+          {
+            "type": "bool",
+            "named": true
+          },
+          {
+            "type": "break",
+            "named": true
+          },
+          {
+            "type": "call_expression",
+            "named": true
+          },
+          {
+            "type": "continue",
+            "named": true
+          },
+          {
+            "type": "field_access",
+            "named": true
+          },
+          {
+            "type": "float",
+            "named": true
+          },
+          {
+            "type": "function_declaration",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "int",
+            "named": true
+          },
+          {
+            "type": "new",
+            "named": true
+          },
+          {
+            "type": "nil",
+            "named": true
+          },
+          {
+            "type": "object",
+            "named": true
+          },
+          {
+            "type": "parent",
+            "named": true
+          },
+          {
+            "type": "return",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "tenaryOp",
+            "named": true
+          },
+          {
+            "type": "unaryOp",
             "named": true
           }
         ]
@@ -397,7 +847,87 @@
         "required": true,
         "types": [
           {
-            "type": "expression",
+            "type": "arrayAccess",
+            "named": true
+          },
+          {
+            "type": "arrayDeclaration",
+            "named": true
+          },
+          {
+            "type": "binaryOp",
+            "named": true
+          },
+          {
+            "type": "block",
+            "named": true
+          },
+          {
+            "type": "bool",
+            "named": true
+          },
+          {
+            "type": "break",
+            "named": true
+          },
+          {
+            "type": "call_expression",
+            "named": true
+          },
+          {
+            "type": "continue",
+            "named": true
+          },
+          {
+            "type": "field_access",
+            "named": true
+          },
+          {
+            "type": "float",
+            "named": true
+          },
+          {
+            "type": "function_declaration",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "int",
+            "named": true
+          },
+          {
+            "type": "new",
+            "named": true
+          },
+          {
+            "type": "nil",
+            "named": true
+          },
+          {
+            "type": "object",
+            "named": true
+          },
+          {
+            "type": "parent",
+            "named": true
+          },
+          {
+            "type": "return",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "tenaryOp",
+            "named": true
+          },
+          {
+            "type": "unaryOp",
             "named": true
           }
         ]
@@ -412,40 +942,6 @@
       "multiple": true,
       "required": false,
       "types": [
-        {
-          "type": "statement",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "doWhileExpr",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "expression",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "expressionStatement",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "_literal",
-          "named": true
-        },
         {
           "type": "arrayAccess",
           "named": true
@@ -463,11 +959,35 @@
           "named": true
         },
         {
+          "type": "bool",
+          "named": true
+        },
+        {
+          "type": "break",
+          "named": true
+        },
+        {
           "type": "call_expression",
           "named": true
         },
         {
+          "type": "continue",
+          "named": true
+        },
+        {
+          "type": "doWhileExpr",
+          "named": true
+        },
+        {
           "type": "field_access",
+          "named": true
+        },
+        {
+          "type": "float",
+          "named": true
+        },
+        {
+          "type": "forStatement",
           "named": true
         },
         {
@@ -479,7 +999,19 @@
           "named": true
         },
         {
+          "type": "ifExpr",
+          "named": true
+        },
+        {
+          "type": "int",
+          "named": true
+        },
+        {
           "type": "new",
+          "named": true
+        },
+        {
+          "type": "nil",
           "named": true
         },
         {
@@ -487,7 +1019,122 @@
           "named": true
         },
         {
+          "type": "parent",
+          "named": true
+        },
+        {
           "type": "return",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "switchStatement",
+          "named": true
+        },
+        {
+          "type": "tenaryOp",
+          "named": true
+        },
+        {
+          "type": "unaryOp",
+          "named": true
+        },
+        {
+          "type": "variableDeclaration",
+          "named": true
+        },
+        {
+          "type": "whileExpr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "doWhileExpr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "arrayAccess",
+          "named": true
+        },
+        {
+          "type": "arrayDeclaration",
+          "named": true
+        },
+        {
+          "type": "binaryOp",
+          "named": true
+        },
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "bool",
+          "named": true
+        },
+        {
+          "type": "break",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "continue",
+          "named": true
+        },
+        {
+          "type": "field_access",
+          "named": true
+        },
+        {
+          "type": "float",
+          "named": true
+        },
+        {
+          "type": "function_declaration",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "int",
+          "named": true
+        },
+        {
+          "type": "new",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "object",
+          "named": true
+        },
+        {
+          "type": "parent",
+          "named": true
+        },
+        {
+          "type": "return",
+          "named": true
+        },
+        {
+          "type": "string",
           "named": true
         },
         {
@@ -510,7 +1157,87 @@
         "required": true,
         "types": [
           {
-            "type": "expression",
+            "type": "arrayAccess",
+            "named": true
+          },
+          {
+            "type": "arrayDeclaration",
+            "named": true
+          },
+          {
+            "type": "binaryOp",
+            "named": true
+          },
+          {
+            "type": "block",
+            "named": true
+          },
+          {
+            "type": "bool",
+            "named": true
+          },
+          {
+            "type": "break",
+            "named": true
+          },
+          {
+            "type": "call_expression",
+            "named": true
+          },
+          {
+            "type": "continue",
+            "named": true
+          },
+          {
+            "type": "field_access",
+            "named": true
+          },
+          {
+            "type": "float",
+            "named": true
+          },
+          {
+            "type": "function_declaration",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "int",
+            "named": true
+          },
+          {
+            "type": "new",
+            "named": true
+          },
+          {
+            "type": "nil",
+            "named": true
+          },
+          {
+            "type": "object",
+            "named": true
+          },
+          {
+            "type": "parent",
+            "named": true
+          },
+          {
+            "type": "return",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "tenaryOp",
+            "named": true
+          },
+          {
+            "type": "unaryOp",
             "named": true
           }
         ]
@@ -556,11 +1283,91 @@
       "required": true,
       "types": [
         {
-          "type": "expression",
+          "type": "arrayAccess",
+          "named": true
+        },
+        {
+          "type": "arrayDeclaration",
+          "named": true
+        },
+        {
+          "type": "binaryOp",
+          "named": true
+        },
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "bool",
+          "named": true
+        },
+        {
+          "type": "break",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "continue",
+          "named": true
+        },
+        {
+          "type": "field_access",
+          "named": true
+        },
+        {
+          "type": "float",
+          "named": true
+        },
+        {
+          "type": "function_declaration",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "int",
           "named": true
         },
         {
           "type": "keyValueForIterator",
+          "named": true
+        },
+        {
+          "type": "new",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "object",
+          "named": true
+        },
+        {
+          "type": "parent",
+          "named": true
+        },
+        {
+          "type": "return",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "tenaryOp",
+          "named": true
+        },
+        {
+          "type": "unaryOp",
           "named": true
         },
         {
@@ -608,7 +1415,87 @@
         "required": true,
         "types": [
           {
-            "type": "expression",
+            "type": "arrayAccess",
+            "named": true
+          },
+          {
+            "type": "arrayDeclaration",
+            "named": true
+          },
+          {
+            "type": "binaryOp",
+            "named": true
+          },
+          {
+            "type": "block",
+            "named": true
+          },
+          {
+            "type": "bool",
+            "named": true
+          },
+          {
+            "type": "break",
+            "named": true
+          },
+          {
+            "type": "call_expression",
+            "named": true
+          },
+          {
+            "type": "continue",
+            "named": true
+          },
+          {
+            "type": "field_access",
+            "named": true
+          },
+          {
+            "type": "float",
+            "named": true
+          },
+          {
+            "type": "function_declaration",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "int",
+            "named": true
+          },
+          {
+            "type": "new",
+            "named": true
+          },
+          {
+            "type": "nil",
+            "named": true
+          },
+          {
+            "type": "object",
+            "named": true
+          },
+          {
+            "type": "parent",
+            "named": true
+          },
+          {
+            "type": "return",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "tenaryOp",
+            "named": true
+          },
+          {
+            "type": "unaryOp",
             "named": true
           }
         ]
@@ -644,11 +1531,111 @@
       "required": true,
       "types": [
         {
-          "type": "expression",
+          "type": "arrayAccess",
           "named": true
         },
         {
-          "type": "statement",
+          "type": "arrayDeclaration",
+          "named": true
+        },
+        {
+          "type": "binaryOp",
+          "named": true
+        },
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "bool",
+          "named": true
+        },
+        {
+          "type": "break",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "continue",
+          "named": true
+        },
+        {
+          "type": "doWhileExpr",
+          "named": true
+        },
+        {
+          "type": "field_access",
+          "named": true
+        },
+        {
+          "type": "float",
+          "named": true
+        },
+        {
+          "type": "forStatement",
+          "named": true
+        },
+        {
+          "type": "function_declaration",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "ifExpr",
+          "named": true
+        },
+        {
+          "type": "int",
+          "named": true
+        },
+        {
+          "type": "new",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "object",
+          "named": true
+        },
+        {
+          "type": "parent",
+          "named": true
+        },
+        {
+          "type": "return",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "switchStatement",
+          "named": true
+        },
+        {
+          "type": "tenaryOp",
+          "named": true
+        },
+        {
+          "type": "unaryOp",
+          "named": true
+        },
+        {
+          "type": "variableDeclaration",
+          "named": true
+        },
+        {
+          "type": "whileExpr",
           "named": true
         }
       ]
@@ -705,7 +1692,87 @@
       "required": false,
       "types": [
         {
-          "type": "expression",
+          "type": "arrayAccess",
+          "named": true
+        },
+        {
+          "type": "arrayDeclaration",
+          "named": true
+        },
+        {
+          "type": "binaryOp",
+          "named": true
+        },
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "bool",
+          "named": true
+        },
+        {
+          "type": "break",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "continue",
+          "named": true
+        },
+        {
+          "type": "field_access",
+          "named": true
+        },
+        {
+          "type": "float",
+          "named": true
+        },
+        {
+          "type": "function_declaration",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "int",
+          "named": true
+        },
+        {
+          "type": "new",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "object",
+          "named": true
+        },
+        {
+          "type": "parent",
+          "named": true
+        },
+        {
+          "type": "return",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "tenaryOp",
+          "named": true
+        },
+        {
+          "type": "unaryOp",
           "named": true
         }
       ]
@@ -750,7 +1817,87 @@
         "required": true,
         "types": [
           {
-            "type": "expression",
+            "type": "arrayAccess",
+            "named": true
+          },
+          {
+            "type": "arrayDeclaration",
+            "named": true
+          },
+          {
+            "type": "binaryOp",
+            "named": true
+          },
+          {
+            "type": "block",
+            "named": true
+          },
+          {
+            "type": "bool",
+            "named": true
+          },
+          {
+            "type": "break",
+            "named": true
+          },
+          {
+            "type": "call_expression",
+            "named": true
+          },
+          {
+            "type": "continue",
+            "named": true
+          },
+          {
+            "type": "field_access",
+            "named": true
+          },
+          {
+            "type": "float",
+            "named": true
+          },
+          {
+            "type": "function_declaration",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "int",
+            "named": true
+          },
+          {
+            "type": "new",
+            "named": true
+          },
+          {
+            "type": "nil",
+            "named": true
+          },
+          {
+            "type": "object",
+            "named": true
+          },
+          {
+            "type": "parent",
+            "named": true
+          },
+          {
+            "type": "return",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "tenaryOp",
+            "named": true
+          },
+          {
+            "type": "unaryOp",
             "named": true
           }
         ]
@@ -796,7 +1943,87 @@
       "required": true,
       "types": [
         {
-          "type": "expression",
+          "type": "arrayAccess",
+          "named": true
+        },
+        {
+          "type": "arrayDeclaration",
+          "named": true
+        },
+        {
+          "type": "binaryOp",
+          "named": true
+        },
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "bool",
+          "named": true
+        },
+        {
+          "type": "break",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "continue",
+          "named": true
+        },
+        {
+          "type": "field_access",
+          "named": true
+        },
+        {
+          "type": "float",
+          "named": true
+        },
+        {
+          "type": "function_declaration",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "int",
+          "named": true
+        },
+        {
+          "type": "new",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "object",
+          "named": true
+        },
+        {
+          "type": "parent",
+          "named": true
+        },
+        {
+          "type": "return",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "tenaryOp",
+          "named": true
+        },
+        {
+          "type": "unaryOp",
           "named": true
         }
       ]
@@ -811,7 +2038,87 @@
         "required": false,
         "types": [
           {
-            "type": "expression",
+            "type": "arrayAccess",
+            "named": true
+          },
+          {
+            "type": "arrayDeclaration",
+            "named": true
+          },
+          {
+            "type": "binaryOp",
+            "named": true
+          },
+          {
+            "type": "block",
+            "named": true
+          },
+          {
+            "type": "bool",
+            "named": true
+          },
+          {
+            "type": "break",
+            "named": true
+          },
+          {
+            "type": "call_expression",
+            "named": true
+          },
+          {
+            "type": "continue",
+            "named": true
+          },
+          {
+            "type": "field_access",
+            "named": true
+          },
+          {
+            "type": "float",
+            "named": true
+          },
+          {
+            "type": "function_declaration",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "int",
+            "named": true
+          },
+          {
+            "type": "new",
+            "named": true
+          },
+          {
+            "type": "nil",
+            "named": true
+          },
+          {
+            "type": "object",
+            "named": true
+          },
+          {
+            "type": "parent",
+            "named": true
+          },
+          {
+            "type": "return",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "tenaryOp",
+            "named": true
+          },
+          {
+            "type": "unaryOp",
             "named": true
           }
         ]
@@ -828,11 +2135,111 @@
       "required": false,
       "types": [
         {
-          "type": "expression",
+          "type": "arrayAccess",
           "named": true
         },
         {
-          "type": "statement",
+          "type": "arrayDeclaration",
+          "named": true
+        },
+        {
+          "type": "binaryOp",
+          "named": true
+        },
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "bool",
+          "named": true
+        },
+        {
+          "type": "break",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "continue",
+          "named": true
+        },
+        {
+          "type": "doWhileExpr",
+          "named": true
+        },
+        {
+          "type": "field_access",
+          "named": true
+        },
+        {
+          "type": "float",
+          "named": true
+        },
+        {
+          "type": "forStatement",
+          "named": true
+        },
+        {
+          "type": "function_declaration",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "ifExpr",
+          "named": true
+        },
+        {
+          "type": "int",
+          "named": true
+        },
+        {
+          "type": "new",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "object",
+          "named": true
+        },
+        {
+          "type": "parent",
+          "named": true
+        },
+        {
+          "type": "return",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "switchStatement",
+          "named": true
+        },
+        {
+          "type": "tenaryOp",
+          "named": true
+        },
+        {
+          "type": "unaryOp",
+          "named": true
+        },
+        {
+          "type": "variableDeclaration",
+          "named": true
+        },
+        {
+          "type": "whileExpr",
           "named": true
         }
       ]
@@ -852,11 +2259,111 @@
       "required": true,
       "types": [
         {
-          "type": "expression",
+          "type": "arrayAccess",
           "named": true
         },
         {
-          "type": "statement",
+          "type": "arrayDeclaration",
+          "named": true
+        },
+        {
+          "type": "binaryOp",
+          "named": true
+        },
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "bool",
+          "named": true
+        },
+        {
+          "type": "break",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "continue",
+          "named": true
+        },
+        {
+          "type": "doWhileExpr",
+          "named": true
+        },
+        {
+          "type": "field_access",
+          "named": true
+        },
+        {
+          "type": "float",
+          "named": true
+        },
+        {
+          "type": "forStatement",
+          "named": true
+        },
+        {
+          "type": "function_declaration",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "ifExpr",
+          "named": true
+        },
+        {
+          "type": "int",
+          "named": true
+        },
+        {
+          "type": "new",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "object",
+          "named": true
+        },
+        {
+          "type": "parent",
+          "named": true
+        },
+        {
+          "type": "return",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "switchStatement",
+          "named": true
+        },
+        {
+          "type": "tenaryOp",
+          "named": true
+        },
+        {
+          "type": "unaryOp",
+          "named": true
+        },
+        {
+          "type": "variableDeclaration",
+          "named": true
+        },
+        {
+          "type": "whileExpr",
           "named": true
         }
       ]
@@ -871,15 +2378,95 @@
       "required": true,
       "types": [
         {
+          "type": "arrayAccess",
+          "named": true
+        },
+        {
+          "type": "arrayDeclaration",
+          "named": true
+        },
+        {
+          "type": "binaryOp",
+          "named": true
+        },
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "bool",
+          "named": true
+        },
+        {
+          "type": "break",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "continue",
+          "named": true
+        },
+        {
           "type": "defaultCase",
           "named": true
         },
         {
-          "type": "expression",
+          "type": "field_access",
+          "named": true
+        },
+        {
+          "type": "float",
+          "named": true
+        },
+        {
+          "type": "function_declaration",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "int",
+          "named": true
+        },
+        {
+          "type": "new",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "object",
+          "named": true
+        },
+        {
+          "type": "parent",
+          "named": true
+        },
+        {
+          "type": "return",
+          "named": true
+        },
+        {
+          "type": "string",
           "named": true
         },
         {
           "type": "switchCase",
+          "named": true
+        },
+        {
+          "type": "tenaryOp",
+          "named": true
+        },
+        {
+          "type": "unaryOp",
           "named": true
         }
       ]
@@ -894,7 +2481,87 @@
         "required": true,
         "types": [
           {
-            "type": "expression",
+            "type": "arrayAccess",
+            "named": true
+          },
+          {
+            "type": "arrayDeclaration",
+            "named": true
+          },
+          {
+            "type": "binaryOp",
+            "named": true
+          },
+          {
+            "type": "block",
+            "named": true
+          },
+          {
+            "type": "bool",
+            "named": true
+          },
+          {
+            "type": "break",
+            "named": true
+          },
+          {
+            "type": "call_expression",
+            "named": true
+          },
+          {
+            "type": "continue",
+            "named": true
+          },
+          {
+            "type": "field_access",
+            "named": true
+          },
+          {
+            "type": "float",
+            "named": true
+          },
+          {
+            "type": "function_declaration",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "int",
+            "named": true
+          },
+          {
+            "type": "new",
+            "named": true
+          },
+          {
+            "type": "nil",
+            "named": true
+          },
+          {
+            "type": "object",
+            "named": true
+          },
+          {
+            "type": "parent",
+            "named": true
+          },
+          {
+            "type": "return",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "tenaryOp",
+            "named": true
+          },
+          {
+            "type": "unaryOp",
             "named": true
           }
         ]
@@ -904,7 +2571,87 @@
         "required": true,
         "types": [
           {
-            "type": "expression",
+            "type": "arrayAccess",
+            "named": true
+          },
+          {
+            "type": "arrayDeclaration",
+            "named": true
+          },
+          {
+            "type": "binaryOp",
+            "named": true
+          },
+          {
+            "type": "block",
+            "named": true
+          },
+          {
+            "type": "bool",
+            "named": true
+          },
+          {
+            "type": "break",
+            "named": true
+          },
+          {
+            "type": "call_expression",
+            "named": true
+          },
+          {
+            "type": "continue",
+            "named": true
+          },
+          {
+            "type": "field_access",
+            "named": true
+          },
+          {
+            "type": "float",
+            "named": true
+          },
+          {
+            "type": "function_declaration",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "int",
+            "named": true
+          },
+          {
+            "type": "new",
+            "named": true
+          },
+          {
+            "type": "nil",
+            "named": true
+          },
+          {
+            "type": "object",
+            "named": true
+          },
+          {
+            "type": "parent",
+            "named": true
+          },
+          {
+            "type": "return",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "tenaryOp",
+            "named": true
+          },
+          {
+            "type": "unaryOp",
             "named": true
           }
         ]
@@ -914,7 +2661,87 @@
         "required": true,
         "types": [
           {
-            "type": "expression",
+            "type": "arrayAccess",
+            "named": true
+          },
+          {
+            "type": "arrayDeclaration",
+            "named": true
+          },
+          {
+            "type": "binaryOp",
+            "named": true
+          },
+          {
+            "type": "block",
+            "named": true
+          },
+          {
+            "type": "bool",
+            "named": true
+          },
+          {
+            "type": "break",
+            "named": true
+          },
+          {
+            "type": "call_expression",
+            "named": true
+          },
+          {
+            "type": "continue",
+            "named": true
+          },
+          {
+            "type": "field_access",
+            "named": true
+          },
+          {
+            "type": "float",
+            "named": true
+          },
+          {
+            "type": "function_declaration",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "int",
+            "named": true
+          },
+          {
+            "type": "new",
+            "named": true
+          },
+          {
+            "type": "nil",
+            "named": true
+          },
+          {
+            "type": "object",
+            "named": true
+          },
+          {
+            "type": "parent",
+            "named": true
+          },
+          {
+            "type": "return",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "tenaryOp",
+            "named": true
+          },
+          {
+            "type": "unaryOp",
             "named": true
           }
         ]
@@ -1015,7 +2842,87 @@
         "required": true,
         "types": [
           {
-            "type": "expression",
+            "type": "arrayAccess",
+            "named": true
+          },
+          {
+            "type": "arrayDeclaration",
+            "named": true
+          },
+          {
+            "type": "binaryOp",
+            "named": true
+          },
+          {
+            "type": "block",
+            "named": true
+          },
+          {
+            "type": "bool",
+            "named": true
+          },
+          {
+            "type": "break",
+            "named": true
+          },
+          {
+            "type": "call_expression",
+            "named": true
+          },
+          {
+            "type": "continue",
+            "named": true
+          },
+          {
+            "type": "field_access",
+            "named": true
+          },
+          {
+            "type": "float",
+            "named": true
+          },
+          {
+            "type": "function_declaration",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "int",
+            "named": true
+          },
+          {
+            "type": "new",
+            "named": true
+          },
+          {
+            "type": "nil",
+            "named": true
+          },
+          {
+            "type": "object",
+            "named": true
+          },
+          {
+            "type": "parent",
+            "named": true
+          },
+          {
+            "type": "return",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "tenaryOp",
+            "named": true
+          },
+          {
+            "type": "unaryOp",
             "named": true
           }
         ]
@@ -1084,11 +2991,91 @@
       "required": false,
       "types": [
         {
-          "type": "expression",
+          "type": "arrayAccess",
+          "named": true
+        },
+        {
+          "type": "arrayDeclaration",
+          "named": true
+        },
+        {
+          "type": "binaryOp",
+          "named": true
+        },
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "bool",
+          "named": true
+        },
+        {
+          "type": "break",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "continue",
+          "named": true
+        },
+        {
+          "type": "field_access",
+          "named": true
+        },
+        {
+          "type": "float",
+          "named": true
+        },
+        {
+          "type": "function_declaration",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "int",
+          "named": true
+        },
+        {
+          "type": "new",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "object",
+          "named": true
+        },
+        {
+          "type": "parent",
+          "named": true
+        },
+        {
+          "type": "return",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "tenaryOp",
           "named": true
         },
         {
           "type": "type",
+          "named": true
+        },
+        {
+          "type": "unaryOp",
           "named": true
         }
       ]
@@ -1103,7 +3090,87 @@
       "required": true,
       "types": [
         {
-          "type": "expression",
+          "type": "arrayAccess",
+          "named": true
+        },
+        {
+          "type": "arrayDeclaration",
+          "named": true
+        },
+        {
+          "type": "binaryOp",
+          "named": true
+        },
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "bool",
+          "named": true
+        },
+        {
+          "type": "break",
+          "named": true
+        },
+        {
+          "type": "call_expression",
+          "named": true
+        },
+        {
+          "type": "continue",
+          "named": true
+        },
+        {
+          "type": "field_access",
+          "named": true
+        },
+        {
+          "type": "float",
+          "named": true
+        },
+        {
+          "type": "function_declaration",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "int",
+          "named": true
+        },
+        {
+          "type": "new",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "object",
+          "named": true
+        },
+        {
+          "type": "parent",
+          "named": true
+        },
+        {
+          "type": "return",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "tenaryOp",
+          "named": true
+        },
+        {
+          "type": "unaryOp",
           "named": true
         }
       ]
